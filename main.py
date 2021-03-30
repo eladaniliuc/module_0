@@ -25,14 +25,14 @@ def game_core_v2(number):
             for i in range(6): 
                 if predict+i*10 > number: #подсчитываем сумму десяток, чтобы превысить number
                     break
-            predict += (i)*10   
+            predict += (i)*10   #суммируем десятки
             if number < predict: 
-                predict -= 5
+                predict -= 5  #вычитаем 5
         elif number < predict:
             for i in range(6): 
-                if predict-i*10 < number: 
+                if predict-i*10 < number: #подсчитываем десятки, для вычитания
                     break
-            predict -= (i-1)*10   
+            predict -= (i-1)*10   #вычитаем десятки
             if number < predict: 
                 predict -= 1
     return(count) # выход из цикла, если угадали
