@@ -14,7 +14,7 @@ def score_game(game_core):
     print(f"Ваш алгоритм угадывает число в среднем за {score} попыток")
     return(score)
 
-def game_core_v2(number):
+def game_core_v1(number):
     '''Сначала устанавливаем любое random число, а потом уменьшаем или увеличиваем его в зависимости от того, больше оно или меньше нужного.
        Функция принимает загаданное число и возвращает число попыток'''
     count = 1
@@ -23,19 +23,40 @@ def game_core_v2(number):
         count+=1
         if number > predict:
             for i in range(6): 
-                if predict+i*10 > number: #подсчитываем сумму десяток, чтобы превысить number
+                if predict+i*10 > number: #подсчитываем десятки, чтобы превысить number
                     break
             predict += (i)*10   #суммируем десятки
             if number < predict: 
-                predict -= 5  #вычитаем 5
+                predict -= 5    #вычитаем 5
         elif number < predict:
             for i in range(6): 
                 if predict-i*10 < number: #подсчитываем десятки, для вычитания
-                    break
-            predict -= (i-1)*10   #вычитаем десятки
+                    break 
+            predict -= (i-1)*10  #вычитаем десятки
             if number < predict: 
-                predict -= 1
+                predict -= 1 #вычитаем единицу
     return(count) # выход из цикла, если угадали
+
+#Проверяем
+score_game(game_core_v1)
+
+
+def game_core_v2(number):
+    '''Сначала устанавливаем любое random число, а потом уменьшаем или увеличиваем его в зависимости от того, больше оно или меньше нужного.
+       Функция принимает загаданное число и возвращает число попыток'''
+    count = 1
+    low = 0
+    high = 100
+    predict = 50
+    while number != predict:
+        count+=1
+        if number > predict:
+            low = predict
+            predict = (int(high + low) // 2) #пользователь каждой своей попыткой будет сокращать количество оставшихся возможных чисел примерно в два раза
+        elif number < predict:
+            high = predict
+            predict = (int(high + low) // 2) #пользователь каждой своей попыткой будет сокращать количество оставшихся возможных чисел примерно в два раза
+    return(int(count)) # выход из цикла, если угадали
 
 #Проверяем
 score_game(game_core_v2)
